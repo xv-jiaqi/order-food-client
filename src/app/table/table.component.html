@@ -1,0 +1,23 @@
+<section>
+  <div>
+    <md-input-container>
+      <input mdInput placeholder="搜索用户" [(ngModel)]="filter">
+    </md-input-container>
+    <button md-raised-button>搜索</button>
+  </div>
+  <table [ngClass]="{'table-default': !table.disableDefaultClass}">
+    <thead>
+    <tr>
+      <th *ngFor="let col of table.cols" class="{{col.thClass || col.tdClass}}">{{col.label || col.name}}</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let row of table.rows | filterBy: filter">
+      <td *ngFor="let col of table.cols" class="{{col.tdClass}}">{{row[col.name]}}</td>
+    </tr>
+    </tbody>
+
+    <tfoot></tfoot>
+  </table>
+</section>
