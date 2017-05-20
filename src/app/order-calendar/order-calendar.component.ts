@@ -8,6 +8,7 @@ import * as moment from 'moment';
   styleUrls: ['./order-calendar.component.css']
 })
 
+// fixme 这部分和日期相关的内容还有部分数据没有做到单一数据源
 export class OrderCalendarComponent implements OnInit {
   @Input() user: User;
 
@@ -20,7 +21,7 @@ export class OrderCalendarComponent implements OnInit {
   weeks = [1, 2, 3, 4, 5, 6];
   checkList = new Array(this.monthsLength[this.month]).fill(false);
 
-  selectRemainDays (type) {
+  selectRemainDays(type) {
     if (type === 'week') {
       const currentDay = moment().day();
 
@@ -33,7 +34,7 @@ export class OrderCalendarComponent implements OnInit {
     }
 
     if (type === 'month') {
-      for (let i = this.currentDate; i <= this.monthsLength[this.month]; i ++) {
+      for (let i = this.currentDate; i <= this.monthsLength[this.month]; i++) {
         const day = moment().date(i).day();
         if (day > 0 && day < 6) {
           this.checkList[i - 1] = true;
@@ -42,13 +43,26 @@ export class OrderCalendarComponent implements OnInit {
     }
   }
 
-  clearSelected () {
-    for (let i = this.currentDate; i <= this.monthsLength[this.month]; i ++) {
+  clearSelected() {
+    for (let i = this.currentDate; i <= this.monthsLength[this.month]; i++) {
       this.checkList[i - 1] = false;
     }
   }
 
+  dateCheck(index) {
+    this.checkList[index] = !this.checkList[index];
+
+    if (this.user.checkToggle) {
+      this.user.checkToggle(this.checkList[index], index);
+    }
+  }
+
   ngOnInit() {
+    if (Array.isArray(this.user.checkList)) {
+      this.user.checkList.forEach((elm) => {
+        this.checkList[elm - 1] = true;
+      });
+    }
   }
 
 }

@@ -8,7 +8,11 @@ import {Component, NgModule} from '@angular/core';
 
 export class AppComponent {
   user = {
-    name: '王大锤'
+    name: '王大锤',
+    checkList: [],
+    checkToggle (state) {
+      console.log(state);
+    }
   };
 
   userList = [{

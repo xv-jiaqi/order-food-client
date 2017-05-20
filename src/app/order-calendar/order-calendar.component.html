@@ -1,5 +1,4 @@
-<header>{{user.name}}</header>
-<div>{{year}}年{{month + 1}}月</div>
+<header class="calendar-header">{{user.name}} - {{year}} 年 {{month + 1}} 月</header>
 <div>
   <button md-raised-button (click)="selectRemainDays('week')">选中本周剩余工作日</button>
   <button md-raised-button (click)="selectRemainDays('month')">选中本月剩余工作日</button>
@@ -18,6 +17,7 @@
       <div *ngIf="((dayIndex + 1) * (weekIndex + 1) > firstDay) && 7 * weekIndex + dayIndex <= monthsLength[month]" class="cell">
         <span class="date" [ngClass]="{'today': 7 * weekIndex + dayIndex === currentDate}">{{7 * weekIndex + dayIndex}}</span>
         <md-checkbox
+          (change)="dateCheck(7 * weekIndex + dayIndex - 1)"
           [checked]="checkList[7 * weekIndex + dayIndex - 1]"
           [disabled]="7 * weekIndex + dayIndex < currentDate + firstDay - 1">
         </md-checkbox>
