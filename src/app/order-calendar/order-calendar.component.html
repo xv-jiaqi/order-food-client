@@ -1,0 +1,28 @@
+<header>{{user.name}}</header>
+<div>{{year}}年{{month + 1}}月</div>
+<div>
+  <button md-raised-button (click)="selectRemainDays('week')">选中本周剩余工作日</button>
+  <button md-raised-button (click)="selectRemainDays('month')">选中本月剩余工作日</button>
+  <button md-raised-button (click)="clearSelected()">清空已选</button>
+</div>
+<table class="date-table">
+  <thead>
+  <tr class="row">
+    <td *ngFor="let day of days">{{day}}</td>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr class="row" *ngFor="let week of weeks; let weekIndex = index">
+    <td *ngFor="let day of days; let dayIndex = index" class="td">
+      <div *ngIf="((dayIndex + 1) * (weekIndex + 1) > firstDay) && 7 * weekIndex + dayIndex <= monthsLength[month]" class="cell">
+        <span class="date" [ngClass]="{'today': 7 * weekIndex + dayIndex === currentDate}">{{7 * weekIndex + dayIndex}}</span>
+        <md-checkbox
+          [checked]="checkList[7 * weekIndex + dayIndex - 1]"
+          [disabled]="7 * weekIndex + dayIndex < currentDate + firstDay - 1">
+        </md-checkbox>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
