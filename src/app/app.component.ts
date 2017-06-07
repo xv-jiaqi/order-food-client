@@ -1,4 +1,6 @@
-import {Component, NgModule} from '@angular/core';
+import {Component, NgModule, OnInit} from '@angular/core';
+import {Http, Response} from '@angular/http';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -6,7 +8,10 @@ import {Component, NgModule} from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
+  title: string;
+  userCtrl: FormControl;
+
   user = {
     name: '王大锤',
     checkList: [],
@@ -15,9 +20,29 @@ export class AppComponent {
     }
   };
 
-  userList = [{
-    username: '王大锤'
-  }, {
-    username: '王二锤'
-  }];
+  userList = [];
+
+  table = {
+    cols: [{
+      name: 'name',
+      label: '姓名'
+    }, {
+      name: 'username',
+      label: '用户名'
+    }],
+
+    rows: this.userList
+  };
+
+  constructor(private http: Http) {
+    http.get('http://localhost:3000/user/list')
+      .map((res: Response) => res.json())
+      .subscribe(
+        data => this.userList.push(...data.result)
+      );
+  }
+
+  ngOnInit() {
+    this.title = '吃饭！';
+  }
 }

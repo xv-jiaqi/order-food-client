@@ -4,29 +4,32 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgPipesModule} from 'ng-pipes';
-import {NgxDatatableModule} from '@swimlane/ngx-datatable';
+import {AppRoutingModule} from './routing.module';
 
 import {AppComponent} from './app.component';
-import {MdButtonModule, MdInputModule, MdCheckboxModule} from '@angular/material';
+import {MdButtonModule, MdInputModule, MdCheckboxModule, MdAutocompleteModule} from '@angular/material';
 import {TableComponent} from './table/table.component';
-import { OrderCalendarComponent } from './order-calendar/order-calendar.component';
+import {OrderCalendarComponent} from './order-calendar/order-calendar.component';
+import { SearchBoxComponent } from './search-box/search-box.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TableComponent,
-    OrderCalendarComponent
+    OrderCalendarComponent,
+    SearchBoxComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
     MdButtonModule,
     MdInputModule,
     MdCheckboxModule,
-    NgPipesModule,
-    NgxDatatableModule
+    MdAutocompleteModule,
+    NgPipesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

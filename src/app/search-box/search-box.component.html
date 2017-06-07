@@ -1,0 +1,10 @@
+<section class="search-box">
+  <md-input-container class="search-user">
+    <input mdInput placeholder="搜索用户" [mdAutocomplete]="auto">
+  </md-input-container>
+  <md-autocomplete #auto="mdAutocomplete">
+    <md-option *ngFor="let user of userList" [value]="user.name">
+      {{ user.name || user.username}}
+    </md-option>
+  </md-autocomplete>
+</section>
