@@ -1,8 +1,11 @@
 .app {
   width: 60%;
-
   position: absolute;
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.app-title {
+  font-size: 48px;
 }
