@@ -8,7 +8,6 @@ import * as moment from 'moment';
   styleUrls: ['./order-calendar.component.css']
 })
 
-// fixme 这部分和日期相关的内容还有部分数据没有做到单一数据源
 export class OrderCalendarComponent implements OnInit {
   @Input() user: User;
 
@@ -21,11 +20,11 @@ export class OrderCalendarComponent implements OnInit {
   weeks = [1, 2, 3, 4, 5, 6];
   checkList = new Array(this.monthsLength[this.month]).fill(false);
 
-  selectRemainDays(type) {
+  selectRemainDays(type: string) {
     if (type === 'week') {
-      const currentDay = moment().day();
+      const currentDay = moment(this.currentDate).day();
 
-      for (let i = this.currentDate; i < this.currentDate + 6 - currentDay; i++) {
+      for (let i = this.currentDate; i < this.currentDate + 7 - currentDay; i++) {
         const day = moment().date(i).day();
         if (day > 0 && day < 6) {
           this.checkList[i - 1] = true;

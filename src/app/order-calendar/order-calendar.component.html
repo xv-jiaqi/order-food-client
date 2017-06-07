@@ -7,18 +7,18 @@
 <table class="date-table">
   <thead>
   <tr class="row">
-    <td *ngFor="let day of days">{{day}}</td>
+    <th *ngFor="let day of days">{{day}}</th>
   </tr>
   </thead>
 
   <tbody>
   <tr class="row" *ngFor="let week of weeks; let weekIndex = index">
     <td *ngFor="let day of days; let dayIndex = index" class="td">
-      <div *ngIf="((dayIndex + 1) * (weekIndex + 1) > firstDay) && 7 * weekIndex + dayIndex <= monthsLength[month]" class="cell">
-        <span class="date" [ngClass]="{'today': 7 * weekIndex + dayIndex === currentDate}">{{7 * weekIndex + dayIndex}}</span>
+      <div *ngIf="firstDay - 1 < 7 * weekIndex + dayIndex && 7 * weekIndex + dayIndex - firstDay + 1 <= monthsLength[month]" class="cell">
+        <span class="date" [ngClass]="{'today': 7 * weekIndex + dayIndex - firstDay + 1 === currentDate}">{{7 * weekIndex + dayIndex - firstDay + 1}}</span>
         <md-checkbox
-          (change)="dateCheck(7 * weekIndex + dayIndex - 1)"
-          [checked]="checkList[7 * weekIndex + dayIndex - 1]"
+          (change)="dateCheck(7 * weekIndex + dayIndex - firstDay)"
+          [checked]="checkList[7 * weekIndex + dayIndex - firstDay]"
           [disabled]="7 * weekIndex + dayIndex < currentDate + firstDay - 1">
         </md-checkbox>
       </div>
