@@ -1,4 +1,14 @@
-.search-box {}
+.search-box {
+  position: absolute;
+  width: 60%;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.app-title {
+  font-size: 48px;
+}
 
 .search-user {
   width: 100%;

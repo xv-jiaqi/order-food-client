@@ -1,4 +1,7 @@
-<header class="calendar-header">{{user.name}} - {{year}} 年 {{month + 1}} 月</header>
+<header class="calendar-header">
+  <button md-raised-button routerLink="/search">返回首页</button>
+  {{user.name || user.username}} - {{year}} 年 {{month + 1}} 月
+</header>
 <div>
   <button md-raised-button (click)="selectRemainDays('week')">选中本周剩余工作日</button>
   <button md-raised-button (click)="selectRemainDays('month')">选中本月剩余工作日</button>

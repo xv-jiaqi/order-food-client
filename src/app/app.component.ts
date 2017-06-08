@@ -1,6 +1,5 @@
-import {Component, NgModule, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Http, Response} from '@angular/http';
-import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -8,18 +7,7 @@ import {FormControl} from '@angular/forms';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnInit {
-  title: string;
-  userCtrl: FormControl;
-
-  user = {
-    name: '王大锤',
-    checkList: [],
-    checkToggle (state) {
-      console.log(state);
-    }
-  };
-
+export class AppComponent {
   userList = [];
 
   table = {
@@ -40,9 +28,5 @@ export class AppComponent implements OnInit {
       .subscribe(
         data => this.userList.push(...data.result)
       );
-  }
-
-  ngOnInit() {
-    this.title = '吃饭！';
   }
 }

@@ -1,5 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
-import User from './User';
+import {Http, Response} from '@angular/http';
+import {ActivatedRoute, Router} from '@angular/router';
+// import User from './User';
 import * as moment from 'moment';
 
 @Component({
@@ -9,7 +11,13 @@ import * as moment from 'moment';
 })
 
 export class OrderCalendarComponent implements OnInit {
-  @Input() user: User;
+  // @Input() user: User;
+  user = {
+    name: '',
+    username: '',
+    checkList: [],
+    checkToggle (target, index) {}
+  };
 
   firstDay = moment().date(1).day();
   year = moment().year();
@@ -56,12 +64,30 @@ export class OrderCalendarComponent implements OnInit {
     }
   }
 
+  constructor(private http: Http,
+              private route: ActivatedRoute,
+              private router: Router) {
+  }
+
   ngOnInit() {
-    if (Array.isArray(this.user.checkList)) {
-      this.user.checkList.forEach((elm) => {
-        this.checkList[elm - 1] = true;
-      });
-    }
+    this.route.params
+      .subscribe(
+        ({userId}) => {
+          this.http.get(`http://localhost:3000/user/${userId}`)
+            .map((res: Response) => res.json())
+            .subscribe(
+              ({result: user}) => {
+                Object.assign(this.user, user);
+
+                if (Array.isArray(this.user.checkList)) {
+                  this.user.checkList.forEach((elm) => {
+                    this.checkList[elm - 1] = true;
+                  });
+                }
+              }
+            );
+        }
+      );
   }
 
 }

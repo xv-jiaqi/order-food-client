@@ -1,9 +1,11 @@
 <section class="search-box">
+  <h1 class="app-title">{{title}}</h1>
   <md-input-container class="search-user">
     <input mdInput placeholder="搜索用户" [mdAutocomplete]="auto" [formControl]="userCtrl">
   </md-input-container>
   <md-autocomplete #auto="mdAutocomplete">
-    <md-option *ngFor="let user of filterList | async" [value]="user.id">
+    <md-option *ngFor="let user of filterList | async"
+    (click)="selectUser(user)">
       {{ user.name || user.username}}
     </md-option>
   </md-autocomplete>
