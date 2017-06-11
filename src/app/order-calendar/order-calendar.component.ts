@@ -31,12 +31,12 @@ export class OrderCalendarComponent implements OnInit {
 
   selectRemainDays(type: string) {
     if (type === 'week') {
-      const currentDay = moment(this.currentDate).day();
+      const currentDay = moment().day();
 
       for (let i = this.currentDate; i < this.currentDate + 7 - currentDay; i++) {
         const day = moment().date(i).day();
         if (day > 0 && day < 6) {
-          this.checkList[i - 1] = true;
+          this.dateCheck(i - 1, true);
         }
       }
     }
@@ -45,7 +45,7 @@ export class OrderCalendarComponent implements OnInit {
       for (let i = this.currentDate; i <= this.monthLength; i++) {
         const day = moment().date(i).day();
         if (day > 0 && day < 6) {
-          this.checkList[i - 1] = true;
+          this.dateCheck(i - 1, true);
         }
       }
     }
@@ -58,7 +58,7 @@ export class OrderCalendarComponent implements OnInit {
   }
 
   submit() {
-    this.http.patch(`/user/${this.user.id}`, {})
+    this.http.patch(`/user/${this.user.id}`, {date: this.user.date})
       .map((res: Response) => res.json())
       .subscribe(({message}) => {
         console.log(message);
@@ -69,12 +69,16 @@ export class OrderCalendarComponent implements OnInit {
     location.reload(true);
   }
 
-  dateCheck(index) {
-    this.checkList[index] = !this.checkList[index];
+  dateCheck(index: number, forceBool?: boolean) {
+    if (forceBool !== undefined) {
+      this.checkList[index] = forceBool;
+    } else {
+      this.checkList[index] = !this.checkList[index];
+    }
 
-    const time = moment(`${this.year}-${this.month + 1 < 10 ? '0' + (this.month + 1) : this.month + 1}-${index + 1}`).unix();
-    if (this.checkList[index]) {
-      this.user.date.push(time);
+    const time = moment(`${this.year}-${this.month + 1 < 10 ? '0' + (this.month + 1) : this.month + 1}-${index + 1}`);
+    if (this.checkList[index] && time) {
+      this.user.date.push(time.unix());
     } else {
       this.user.date.splice(this.user.date.findIndex(d => d === time), 1);
     }
@@ -102,7 +106,7 @@ export class OrderCalendarComponent implements OnInit {
                 Object.assign(this.user, user);
 
                 this.user.date.forEach(date => {
-                  this.checkList[moment(date).date() - 1] = true;
+                  this.checkList[moment.unix(date).date() - 1] = true;
                 });
               }
             );
