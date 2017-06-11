@@ -1,7 +1,6 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Http, Response} from '@angular/http';
-import {ActivatedRoute, Router} from '@angular/router';
-// import User from './User';
+import {ActivatedRoute} from '@angular/router';
 import * as moment from 'moment';
 
 @Component({
@@ -11,12 +10,13 @@ import * as moment from 'moment';
 })
 
 export class OrderCalendarComponent implements OnInit {
-  // @Input() user: User;
   user = {
+    id: '',
     name: '',
     username: '',
-    checkList: [],
-    checkToggle (target, index) {}
+    date: [],
+    checkToggle (value: boolean, index: number) {
+    }
   };
 
   firstDay = moment().date(1).day();
@@ -24,9 +24,9 @@ export class OrderCalendarComponent implements OnInit {
   month = moment().month();
   currentDate = moment().date();
   days = ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
-  monthsLength = [31, moment([this.year]).isLeapYear() ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  monthLength = moment(`${this.year}-${this.month + 1 < 10 ? '0' + (this.month + 1) : this.month + 1}`, 'YYYY-MM').daysInMonth();
   weeks = [1, 2, 3, 4, 5, 6];
-  checkList = new Array(this.monthsLength[this.month]).fill(false);
+  checkList = new Array(this.monthLength).fill(false);
 
   selectRemainDays(type: string) {
     if (type === 'week') {
@@ -41,7 +41,7 @@ export class OrderCalendarComponent implements OnInit {
     }
 
     if (type === 'month') {
-      for (let i = this.currentDate; i <= this.monthsLength[this.month]; i++) {
+      for (let i = this.currentDate; i <= this.monthLength; i++) {
         const day = moment().date(i).day();
         if (day > 0 && day < 6) {
           this.checkList[i - 1] = true;
@@ -51,13 +51,32 @@ export class OrderCalendarComponent implements OnInit {
   }
 
   clearSelected() {
-    for (let i = this.currentDate; i <= this.monthsLength[this.month]; i++) {
+    for (let i = this.currentDate; i <= this.monthLength; i++) {
       this.checkList[i - 1] = false;
     }
   }
 
+  submit() {
+    this.http.patch(`/user/${this.user.id}`, {})
+      .map((res: Response) => res.json())
+      .subscribe(({message}) => {
+        console.log(message);
+      });
+  }
+
+  reload() {
+    location.reload(true);
+  }
+
   dateCheck(index) {
     this.checkList[index] = !this.checkList[index];
+
+    if (this.checkList[index]) {
+      const time = `${this.year}-${this.month + 1 < 10 ? '0' + (this.month + 1) : this.month + 1}-${index + 1}`;
+      this.user.date.push(moment(time).unix());
+    }
+
+    console.log(this.user.date);
 
     if (this.user.checkToggle) {
       this.user.checkToggle(this.checkList[index], index);
@@ -65,25 +84,22 @@ export class OrderCalendarComponent implements OnInit {
   }
 
   constructor(private http: Http,
-              private route: ActivatedRoute,
-              private router: Router) {
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.route.params
       .subscribe(
         ({userId}) => {
-          this.http.get(`http://localhost:3000/user/${userId}`)
+          this.http.get(`/user/${userId}`)
             .map((res: Response) => res.json())
             .subscribe(
               ({result: user}) => {
                 Object.assign(this.user, user);
 
-                if (Array.isArray(this.user.checkList)) {
-                  this.user.checkList.forEach((elm) => {
-                    this.checkList[elm - 1] = true;
-                  });
-                }
+                this.user.date.forEach(date => {
+                  this.checkList[moment(date).date() - 1] = true;
+                });
               }
             );
         }

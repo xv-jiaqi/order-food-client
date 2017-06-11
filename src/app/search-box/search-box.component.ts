@@ -20,7 +20,7 @@ export class SearchBoxComponent implements OnInit {
 
   constructor(private http: Http,
               private router: Router) {
-    http.get('http://localhost:3000/user/list')
+    http.get('/user/list')
       .map((res: Response) => res.json())
       .subscribe(
         data => this.userList.push(...data.result)

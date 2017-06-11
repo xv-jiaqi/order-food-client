@@ -2,10 +2,21 @@
   <button md-raised-button routerLink="/search">返回首页</button>
   {{user.name || user.username}} - {{year}} 年 {{month + 1}} 月
 </header>
-<div>
-  <button md-raised-button (click)="selectRemainDays('week')">选中本周剩余工作日</button>
-  <button md-raised-button (click)="selectRemainDays('month')">选中本月剩余工作日</button>
-  <button md-raised-button (click)="clearSelected()">清空已选</button>
+<div class="control-bar">
+  <span>
+    <button md-raised-button (click)="selectRemainDays('week')">选中本周剩余工作日</button>
+    <button md-raised-button (click)="selectRemainDays('month')">选中本月剩余工作日</button>
+  </span>
+
+  <span>
+    <button md-raised-button (click)="submit()">提交</button>
+    <button md-raised-button (click)="clearSelected()">清空</button>
+  </span>
+
+  <span>
+    <button md-raised-button (click)="reload()">重新加载</button>
+  </span>
+
 </div>
 <table class="date-table">
   <thead>
@@ -17,7 +28,9 @@
   <tbody>
   <tr class="row" *ngFor="let week of weeks; let weekIndex = index">
     <td *ngFor="let day of days; let dayIndex = index" class="td">
-      <div *ngIf="firstDay - 1 < 7 * weekIndex + dayIndex && 7 * weekIndex + dayIndex - firstDay + 1 <= monthsLength[month]" class="cell">
+      <div
+        *ngIf="firstDay - 1 < 7 * weekIndex + dayIndex && 7 * weekIndex + dayIndex - firstDay + 1 <= monthLength"
+        class="cell">
         <span class="date" [ngClass]="{'today': 7 * weekIndex + dayIndex - firstDay + 1 === currentDate}">{{7 * weekIndex + dayIndex - firstDay + 1}}</span>
         <md-checkbox
           (change)="dateCheck(7 * weekIndex + dayIndex - firstDay)"

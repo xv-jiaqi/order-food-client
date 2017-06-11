@@ -23,7 +23,7 @@ export class AppComponent {
   };
 
   constructor(private http: Http) {
-    http.get('http://localhost:3000/user/list')
+    http.get('/user/list')
       .map((res: Response) => res.json())
       .subscribe(
         data => this.userList.push(...data.result)
