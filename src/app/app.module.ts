@@ -5,6 +5,7 @@ import {HttpModule} from '@angular/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgPipesModule} from 'ng-pipes';
 import {AppRoutingModule} from './routing.module';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 import {AppComponent} from './app.component';
 import {MdButtonModule, MdInputModule, MdCheckboxModule, MdAutocompleteModule} from '@angular/material';
@@ -32,7 +33,7 @@ import { SearchBoxComponent } from './search-box/search-box.component';
     MdAutocompleteModule,
     NgPipesModule
   ],
-  providers: [],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

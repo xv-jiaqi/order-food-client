@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {ActivatedRoute} from '@angular/router';
 import * as moment from 'moment';
+import {uniq} from 'lodash';
 
 @Component({
   selector: 'app-order-calendar',
@@ -71,12 +72,15 @@ export class OrderCalendarComponent implements OnInit {
   dateCheck(index) {
     this.checkList[index] = !this.checkList[index];
 
+    const time = moment(`${this.year}-${this.month + 1 < 10 ? '0' + (this.month + 1) : this.month + 1}-${index + 1}`).unix();
     if (this.checkList[index]) {
-      const time = `${this.year}-${this.month + 1 < 10 ? '0' + (this.month + 1) : this.month + 1}-${index + 1}`;
-      this.user.date.push(moment(time).unix());
+      this.user.date.push(time);
+    } else {
+      this.user.date.splice(this.user.date.findIndex(d => d === time), 1);
     }
 
-    console.log(this.user.date);
+    this.user.date = uniq(this.user.date);
+    this.user.date.sort((d1, d2) => d1 - d2);
 
     if (this.user.checkToggle) {
       this.user.checkToggle(this.checkList[index], index);
