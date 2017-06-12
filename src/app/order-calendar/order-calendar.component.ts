@@ -53,7 +53,7 @@ export class OrderCalendarComponent implements OnInit {
 
   clearSelected() {
     for (let i = this.currentDate; i <= this.monthLength; i++) {
-      this.checkList[i - 1] = false;
+      this.dateCheck(i - 1, false);
     }
   }
 
@@ -106,7 +106,12 @@ export class OrderCalendarComponent implements OnInit {
                 Object.assign(this.user, user);
 
                 this.user.date.forEach(date => {
-                  this.checkList[moment.unix(date).date() - 1] = true;
+                  const time = moment.unix(date);
+
+                  if (time.month() !== this.month) {
+                    return;
+                  }
+                  this.checkList[time.date() - 1] = true;
                 });
               }
             );

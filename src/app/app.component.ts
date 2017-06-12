@@ -21,12 +21,4 @@ export class AppComponent {
 
     rows: this.userList
   };
-
-  constructor(private http: Http) {
-    http.get('/user/list')
-      .map((res: Response) => res.json())
-      .subscribe(
-        data => this.userList.push(...data.result)
-      );
-  }
 }
