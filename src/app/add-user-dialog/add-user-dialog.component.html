@@ -1,0 +1,42 @@
+<div class="add-user-dialog">
+  <header md-dialog-title>
+    <md-toolbar color="primary">添加用户</md-toolbar>
+  </header>
+
+  <md-dialog-content>
+    <form>
+      <div class="form-group">
+        <label class="form-label">用户名</label>
+        <md-input-container class="form-control">
+          <input mdInput type="text" name="username" [(ngModel)]="username">
+        </md-input-container>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">姓名</label>
+        <md-input-container class="form-control">
+          <input mdInput type="text" name="name" [(ngModel)]="name">
+        </md-input-container>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">性别</label>
+        <md-radio-group name="sex" [(ngModel)]="sex">
+          <md-radio-button value="male">男</md-radio-button>
+          <md-radio-button value="female">女</md-radio-button>
+        </md-radio-group>
+      </div>
+    </form>
+  </md-dialog-content>
+
+  <footer class="dialog-footer">
+    <div class="right-button-container">
+      <button md-fab>
+        <md-icon>check</md-icon>
+      </button>
+      <button md-fab md-dialog-close class="cancel">
+        <md-icon>clear</md-icon>
+      </button>
+    </div>
+  </footer>
+</div>

@@ -1,0 +1,37 @@
+.add-user-dialog {
+  width: 400px;
+}
+
+.form-group {
+  position: relative;
+  margin-left: 60px;
+  padding: 8px 0;
+}
+
+.form-group > .form-label {
+  position: absolute;
+  top: 50%;
+  left: -60px;
+  transform: translateY(-50%);
+}
+
+.form-group > .form-label:after {
+  content: ':';
+}
+
+.form-group > .form-control {
+  width: 100%;
+}
+
+.dialog-footer {
+  text-align: right;
+}
+
+.dialog-footer .right-button-container {
+  display: inline-block;
+}
+
+.cancel {
+  margin-left: 20px;
+  background-color: #ffffff;
+}

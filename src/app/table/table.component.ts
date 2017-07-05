@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {Ng2SmartTableModule, LocalDataSource} from 'ng2-smart-table';
+import {MdDialog} from '@angular/material';
+import {AddUserDialogComponent} from '../add-user-dialog/add-user-dialog.component';
 import * as moment from 'moment';
 
 @Component({
@@ -33,8 +35,12 @@ export class TableComponent implements OnInit {
     }
   };
 
-  constructor(private http: Http) {
+  constructor(private http: Http, public dialog: MdDialog) {
     this.userList = new LocalDataSource();
+  }
+
+  openAddUserDialog() {
+    this.dialog.open(AddUserDialogComponent);
   }
 
   updateCount() {
