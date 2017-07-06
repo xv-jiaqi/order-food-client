@@ -8,22 +8,22 @@
       <div class="form-group">
         <label class="form-label">用户名</label>
         <md-input-container class="form-control">
-          <input mdInput type="text" name="username" [(ngModel)]="username">
+          <input mdInput type="text" name="username" [(ngModel)]="username" required>
         </md-input-container>
       </div>
 
       <div class="form-group">
         <label class="form-label">姓名</label>
         <md-input-container class="form-control">
-          <input mdInput type="text" name="name" [(ngModel)]="name">
+          <input mdInput type="text" name="name" [(ngModel)]="name" required>
         </md-input-container>
       </div>
 
       <div class="form-group">
         <label class="form-label">性别</label>
-        <md-radio-group name="sex" [(ngModel)]="sex">
-          <md-radio-button value="male">男</md-radio-button>
-          <md-radio-button value="female">女</md-radio-button>
+        <md-radio-group name="sex" [(ngModel)]="sex" required>
+          <md-radio-button [value]="1">男</md-radio-button>
+          <md-radio-button [value]="2">女</md-radio-button>
         </md-radio-group>
       </div>
     </form>
@@ -31,7 +31,7 @@
 
   <footer class="dialog-footer">
     <div class="right-button-container">
-      <button md-fab>
+      <button md-fab type="submit" (click)="submit()">
         <md-icon>check</md-icon>
       </button>
       <button md-fab md-dialog-close class="cancel">

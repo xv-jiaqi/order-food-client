@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Http, Response} from '@angular/http';
 
 @Component({
   selector: 'app-add-user-dialog',
@@ -9,11 +10,33 @@ export class AddUserDialogComponent implements OnInit {
 
   username: string;
   name: string;
-  sex: string;
+  sex: number;
 
-  constructor() { }
+  constructor(private http: Http) {
+  }
 
   ngOnInit() {
+  }
+
+  submit() {
+    const newUser = {};
+
+    const enabled = ['username', 'name', 'sex']
+      .every(attr => {
+        newUser[attr] = this[attr];
+        return this[attr];
+      });
+
+    if (!enabled) {
+      return;
+    }
+
+    this.http
+      .post('/user', newUser)
+      .map((res: Response) => res.json())
+      .subscribe(
+        data => console.log(data)
+      );
   }
 
 }
