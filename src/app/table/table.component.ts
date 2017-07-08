@@ -44,8 +44,10 @@ export class TableComponent implements OnInit {
   }
 
   updateCount() {
-    const date = moment().date();
-    this.http.get(`/count/update/startTime/${moment().date(date).unix()}/endTime/${moment().date(date + 1).unix()}`)
+    const startTime = moment(moment().format('YYYY-MM-DD')).unix();
+    const endTime = startTime + moment.duration(1, 'days').asSeconds();
+
+    this.http.get(`/count/update/startTime/${startTime}/endTime/${endTime}`)
       .map((res: Response) => res.json())
       .subscribe(({result}) => {
         this.count = result.count;
@@ -67,13 +69,6 @@ export class TableComponent implements OnInit {
         this.userList.load(result);
       });
 
-    // this.http.get('/count')
-    const date = moment().date();
-    this.http.get(`/count/update/startTime/${moment().date(date).unix()}/endTime/${moment().date(date + 1).unix()}`)
-      .map((res: Response) => res.json())
-      .subscribe(({result}) => {
-        this.count = result.count;
-        this.countTime = moment.unix(result.countTime).format('YYYY年MM月DD日HH时mm分');
-      });
+    this.updateCount();
   }
 }
