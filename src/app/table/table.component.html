@@ -8,4 +8,10 @@
     <button md-raised-button (click)="updateCount()">更新统计数据</button>
   </section>
   <ng2-smart-table [settings]="table" [source]="userList"></ng2-smart-table>
+  <!--<md-table [dataSource]="userList">-->
+    <!--<ng-container cdkColumnDef="name">-->
+      <!--<md-header-cell *cdkHeaderCellDef> 姓名 </md-header-cell>-->
+      <!--<md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>-->
+    <!--</ng-container>-->
+  <!--</md-table>-->
 </section>

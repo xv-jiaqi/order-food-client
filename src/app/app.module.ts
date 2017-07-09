@@ -15,7 +15,8 @@ import {
   MdDialogModule,
   MdRadioModule,
   MdToolbarModule,
-  MdIconModule
+  MdIconModule,
+  MdTableModule
 } from '@angular/material';
 
 // todo 有计划在MdTable发布之后将下面的TableComponent和Ng2SmartTableModule替换成MdTable
@@ -50,6 +51,7 @@ import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.compon
     MdRadioModule,
     MdToolbarModule,
     MdIconModule,
+    MdTableModule,
     Ng2SmartTableModule
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],

@@ -69,6 +69,11 @@ export class TableComponent implements OnInit {
         this.userList.load(result);
       });
 
-    this.updateCount();
+    this.http.get('/count')
+      .map((res: Response) => res.json())
+      .subscribe(({result}) => {
+        this.count = result.count;
+        this.countTime = moment.unix(result.countTime).format('YYYY年MM月DD日HH时mm分');
+      });
   }
 }
