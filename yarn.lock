@@ -3196,17 +3196,6 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "http://registry.npm.taobao.org/negotiator/download/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
-ng2-completer@^1.2.2:
-  version "1.5.2"
-  resolved "http://registry.npm.taobao.org/ng2-completer/download/ng2-completer-1.5.2.tgz#4f2142b7d9186f64cd8cad79e7da0de9b9e128de"
-
-ng2-smart-table@^1.2.1:
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/ng2-smart-table/download/ng2-smart-table-1.2.1.tgz#b25102c1a8b0588c508cf913c539ddf0f0b3341d"
-  dependencies:
-    lodash "^4.17.4"
-    ng2-completer "^1.2.2"
-
 no-case@^2.2.0:
   version "2.3.1"
   resolved "http://registry.npm.taobao.org/no-case/download/no-case-2.3.1.tgz#7aeba1c73a52184265554b7dc03baf720df80081"

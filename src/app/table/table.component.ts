@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Http, Response} from '@angular/http';
-import {Ng2SmartTableModule, LocalDataSource} from 'ng2-smart-table';
 import {MdDialog} from '@angular/material';
-import {AddUserDialogComponent} from '../add-user-dialog/add-user-dialog.component';
 import * as moment from 'moment';
+
+import {AddUserDialogComponent} from '../add-user-dialog/add-user-dialog.component';
+import {UserDataBase, UserDataSource} from './user-data-source';
 
 @Component({
   selector: 'app-table',
@@ -12,42 +13,20 @@ import * as moment from 'moment';
 })
 
 export class TableComponent implements OnInit {
-  userList: LocalDataSource;
+  userList: UserDataSource | null;
   count: number;
   countTime: string;
 
-  table = {
-    columns: {
-      index: {
-        title: '序号'
-      },
-      name: {
-        title: '姓名'
-      }
-    },
-    actions: {
-      add: false,
-      edit: false,
-      delete: false
-    },
-    add: {
-      confirmCreate: true
-    }
-  };
+  displayedColumns = ['id', 'name', 'date'];
 
-  constructor(private http: Http, public dialog: MdDialog) {
-    this.userList = new LocalDataSource();
-  }
+  constructor(private http: Http, public dialog: MdDialog) {}
 
   openAddUserDialog() {
     this.dialog.open(AddUserDialogComponent);
   }
 
   updateCount() {
-    const startTime = moment(moment().format('YYYY-MM-DD')).unix();
-    const endTime = startTime + moment.duration(1, 'days').asSeconds();
-
-    this.http.get(`/count/update/startTime/${startTime}/endTime/${endTime}`)
+    this.http.get(`/count/update`)
       .map((res: Response) => res.json())
       .subscribe(({result}) => {
         this.count = result.count;
@@ -56,24 +35,25 @@ export class TableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.http.get('/user/list')
+    // todo 这里计划改成/count, /count的数据来源于日志而非实时计算, 数据量增加之后可能会有助于优化性能
+    this.http.get('/count/update')
       .map((res: Response) => res.json())
       .subscribe(({result}) => {
-        result.forEach((user, index) => {
+        this.count = result.count;
+        this.countTime = moment.unix(result.countTime).format('YYYY年MM月DD日HH时mm分');
+      });
+
+    this.http.get('/user/list')
+      .map((res: Response) => res.json())
+      .subscribe(({result: userList}) => {
+        userList.forEach((user, index) => {
           user.index = index + 1;
           if (!user.name) {
             user.name = user.username;
           }
         });
 
-        this.userList.load(result);
-      });
-
-    this.http.get('/count')
-      .map((res: Response) => res.json())
-      .subscribe(({result}) => {
-        this.count = result.count;
-        this.countTime = moment.unix(result.countTime).format('YYYY年MM月DD日HH时mm分');
+        this.userList = new UserDataSource(new UserDataBase(userList));
       });
   }
 }

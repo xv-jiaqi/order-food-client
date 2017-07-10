@@ -18,14 +18,12 @@ import {
   MdIconModule,
   MdTableModule
 } from '@angular/material';
+import {CdkTableModule} from '@angular/cdk';
 
-// todo 有计划在MdTable发布之后将下面的TableComponent和Ng2SmartTableModule替换成MdTable
 import {TableComponent} from './table/table.component';
-import {Ng2SmartTableModule} from 'ng2-smart-table';
-
 import {OrderCalendarComponent} from './order-calendar/order-calendar.component';
 import {SearchBoxComponent} from './search-box/search-box.component';
-import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.component';
+import {AddUserDialogComponent} from './add-user-dialog/add-user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +50,7 @@ import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.compon
     MdToolbarModule,
     MdIconModule,
     MdTableModule,
-    Ng2SmartTableModule
+    CdkTableModule
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
