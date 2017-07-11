@@ -16,7 +16,8 @@ import {
   MdRadioModule,
   MdToolbarModule,
   MdIconModule,
-  MdTableModule
+  MdTableModule,
+  MdPaginatorModule
 } from '@angular/material';
 import {CdkTableModule} from '@angular/cdk';
 
@@ -50,7 +51,8 @@ import {AddUserDialogComponent} from './add-user-dialog/add-user-dialog.componen
     MdToolbarModule,
     MdIconModule,
     MdTableModule,
-    CdkTableModule
+    CdkTableModule,
+    MdPaginatorModule
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

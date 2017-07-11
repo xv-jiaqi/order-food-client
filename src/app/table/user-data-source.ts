@@ -1,7 +1,12 @@
 import {DataSource} from '@angular/cdk';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
+import {MdPaginator} from '@angular/material';
 import * as moment from 'moment';
+
+import 'rxjs/add/operator/startWith';
+import 'rxjs/add/observable/merge';
+import 'rxjs/add/operator/map';
 
 export interface UserData {
   readonly id: string;
@@ -43,14 +48,40 @@ export class UserDataBase {
  * should be rendered.
  */
 export class UserDataSource extends DataSource<any> {
-  constructor(private _userDataBase: UserDataBase) {
+  _filterChange = new BehaviorSubject('');
+
+  get filter(): string {
+    return this._filterChange.value;
+  }
+
+  set filter(filter: string) {
+    this._filterChange.next(filter);
+  }
+
+  filterData: UserData[];
+
+  constructor(private _userDataBase: UserDataBase, private _paginator: MdPaginator) {
     super();
   }
 
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<UserData[]> {
-    return this._userDataBase.dataChange;
+    const displayDataChanges = [
+      this._userDataBase.dataChange,
+      this._filterChange,
+      this._paginator.page,
+    ];
+
+    return Observable.merge(...displayDataChanges).map(() => {
+      this.filterData = this._userDataBase.data.slice().filter((user: UserData) => {
+        return user.name.toLowerCase().indexOf(this.filter.toLowerCase()) !== -1;
+      });
+
+      const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
+      return this.filterData.splice(startIndex, this._paginator.pageSize);
+    });
   }
 
-  disconnect() {}
+  disconnect() {
+  }
 }
