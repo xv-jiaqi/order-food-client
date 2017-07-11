@@ -16,10 +16,6 @@
     </div>
 
     <md-table #table [dataSource]="userList">
-      <ng-container cdkColumnDef="id">
-        <md-header-cell *cdkHeaderCellDef>ID</md-header-cell>
-        <md-cell *cdkCellDef="let user">{{user.id}}</md-cell>
-      </ng-container>
       <ng-container cdkColumnDef="name">
         <md-header-cell *cdkHeaderCellDef>姓名</md-header-cell>
         <md-cell *cdkCellDef="let user">{{user.name || user.username}}</md-cell>

@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Http, Response} from '@angular/http';
-import {MdDialog} from '@angular/material';
+import {MdDialog, MdDialogRef} from '@angular/material';
 import {MdPaginator} from '@angular/material';
 import * as moment from 'moment';
 
@@ -10,7 +10,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
 import {AddUserDialogComponent} from '../add-user-dialog/add-user-dialog.component';
-import {UserDataBase, UserDataSource} from './user-data-source';
+import {UserData, UserDataBase, UserDataSource} from './user-data-source';
 
 @Component({
   selector: 'app-table',
@@ -25,16 +25,20 @@ export class TableComponent implements OnInit {
   @ViewChild(MdPaginator) paginator: MdPaginator;
   count: number;
   countTime: string;
-  displayedColumns = ['id', 'name', 'latestOrder'];
+  displayedColumns = ['name', 'latestOrder', 'operation'];
+  addUserDialogRef: MdDialogRef<any>;
 
   constructor(private http: Http, public dialog: MdDialog) {
   }
 
-  openAddUserDialog() {
-    this.dialog.open(AddUserDialogComponent);
+  openAddUserDialog(): void {
+    this.addUserDialogRef = this.dialog.open(AddUserDialogComponent);
+    this.addUserDialogRef.afterClosed().subscribe((newUser: UserData) => {
+      this.userDataBase.addUser(newUser);
+    });
   }
 
-  updateCount() {
+  updateCount(): void {
     this.http.get(`/count/update`)
       .map((res: Response) => res.json())
       .subscribe(({result}) => {

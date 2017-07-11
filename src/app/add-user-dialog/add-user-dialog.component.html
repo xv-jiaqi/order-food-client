@@ -31,7 +31,7 @@
 
   <footer class="dialog-footer">
     <div class="right-button-container">
-      <button md-fab type="submit" (click)="submit()">
+      <button md-fab type="submit" (click)="submit()" [disabled]="pending">
         <md-icon>check</md-icon>
       </button>
       <button md-fab md-dialog-close class="cancel">

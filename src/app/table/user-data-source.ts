@@ -15,7 +15,7 @@ export interface UserData {
   sex: number;
   isAdmin?: boolean;
   latestOrder?: number[];
-  latestOrderString?: string
+  latestOrderString?: string;
   date?: number[];
 }
 
@@ -31,8 +31,10 @@ export class UserDataBase {
     userList.forEach(user => this.addUser(user));
   }
 
-  addUser(user: UserData) {
-    user.latestOrderString = user.latestOrder.map(d => moment.unix(d).format('YYYY年MM月DD日')).join(',\t');
+  addUser(user: UserData): void {
+    if (user.latestOrder) {
+      user.latestOrderString = user.latestOrder.map(d => moment.unix(d).format('YYYY年MM月DD日')).join(',\t');
+    }
 
     const copiedData = this.data.slice();
     copiedData.push(user);

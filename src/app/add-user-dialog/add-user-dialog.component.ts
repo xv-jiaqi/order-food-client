@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Http, Response} from '@angular/http';
+import {MdDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-add-user-dialog',
@@ -7,18 +8,19 @@ import {Http, Response} from '@angular/http';
   styleUrls: ['./add-user-dialog.component.css']
 })
 export class AddUserDialogComponent implements OnInit {
-
   username: string;
   name: string;
   sex: number;
+  pending: boolean;
 
-  constructor(private http: Http) {
+  constructor(public dialogRef: MdDialogRef<any>, private http: Http) {
   }
 
   ngOnInit() {
+    this.pending = false;
   }
 
-  submit() {
+  submit(): void {
     const newUser = {};
 
     const enabled = ['username', 'name', 'sex']
@@ -27,15 +29,20 @@ export class AddUserDialogComponent implements OnInit {
         return this[attr];
       });
 
-    if (!enabled) {
+    if (!enabled || this.pending) {
       return;
     }
+
+    this.pending = true;
 
     this.http
       .post('/user', newUser)
       .map((res: Response) => res.json())
       .subscribe(
-        data => console.log(data)
+        ({result}) => {
+          this.pending = false;
+          this.dialogRef.close(result);
+        }
       );
   }
 
