@@ -2,3 +2,10 @@ th,
 td {
   border: 1px solid #e9ebec;
 }
+
+.filter {
+  position: relative;
+  width: 60%;
+  left: 50%;
+  transform: translateX(-50%);
+}

@@ -17,7 +17,7 @@ export class TableComponent implements OnInit {
   count: number;
   countTime: string;
 
-  displayedColumns = ['id', 'name', 'date'];
+  displayedColumns = ['id', 'name', 'latestOrder'];
 
   constructor(private http: Http, public dialog: MdDialog) {}
 
