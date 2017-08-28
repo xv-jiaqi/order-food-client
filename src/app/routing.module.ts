@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {SearchBoxComponent} from './search-box/search-box.component';
-import {OrderCalendarComponent} from './order-calendar/order-calendar.component';
-import {TableComponent} from './table/table.component';
+import {SearchBoxComponent} from './order/search-box/search-box.component';
+import {OrderCalendarComponent} from './order/order-calendar/order-calendar.component';
+import {TableComponent} from './order/table/table.component';
 
 const routes: Routes = [{
   path: '',

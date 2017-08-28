@@ -19,12 +19,13 @@ import {
   MdTableModule,
   MdPaginatorModule
 } from '@angular/material';
+
 import {CdkTableModule} from '@angular/cdk';
 
-import {TableComponent} from './table/table.component';
-import {OrderCalendarComponent} from './order-calendar/order-calendar.component';
-import {SearchBoxComponent} from './search-box/search-box.component';
-import {AddUserDialogComponent} from './add-user-dialog/add-user-dialog.component';
+import {TableComponent} from './order/table/table.component';
+import {OrderCalendarComponent} from './order/order-calendar/order-calendar.component';
+import {SearchBoxComponent} from './order/search-box/search-box.component';
+import {AddUserDialogComponent} from './order/add-user-dialog/add-user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -57,5 +58,4 @@ import {AddUserDialogComponent} from './add-user-dialog/add-user-dialog.componen
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}
