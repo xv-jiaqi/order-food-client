@@ -1,12 +1,14 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {AppRoutingModule} from './routing.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 import {AppComponent} from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import { CoreModule } from './core/core.module';
+
 import {
   MdButtonModule,
   MdInputModule,
@@ -53,7 +55,8 @@ import {AddUserDialogComponent} from './order/add-user-dialog/add-user-dialog.co
     MdIconModule,
     MdTableModule,
     CdkTableModule,
-    MdPaginatorModule
+    MdPaginatorModule,
+    CoreModule
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
