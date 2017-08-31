@@ -28,6 +28,9 @@ import {TableComponent} from './order/table/table.component';
 import {OrderCalendarComponent} from './order/order-calendar/order-calendar.component';
 import {SearchBoxComponent} from './order/search-box/search-box.component';
 import {AddUserDialogComponent} from './order/add-user-dialog/add-user-dialog.component';
+import { AddUserComponent } from './order/add-user/add-user.component';
+
+import { EmailComponent} from './shared/email/email.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,9 @@ import {AddUserDialogComponent} from './order/add-user-dialog/add-user-dialog.co
     TableComponent,
     OrderCalendarComponent,
     SearchBoxComponent,
-    AddUserDialogComponent
+    AddUserDialogComponent,
+    AddUserComponent,
+    EmailComponent
   ],
   entryComponents: [AddUserDialogComponent],
   imports: [

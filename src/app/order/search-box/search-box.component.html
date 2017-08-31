@@ -1,9 +1,9 @@
 <section class="search-box">
   <button md-raised-button routerLink="/userList">统计</button>
   <h1 class="app-title">{{title}}</h1>
-  <md-input-container class="search-user">
+  <md-form-field class="search-user">
     <input mdInput placeholder="搜索用户" [mdAutocomplete]="auto" [formControl]="userCtrl">
-  </md-input-container>
+  </md-form-field>
   <md-autocomplete #auto="mdAutocomplete">
     <md-option *ngFor="let user of filterList | async"
                (click)="selectUser(user)">

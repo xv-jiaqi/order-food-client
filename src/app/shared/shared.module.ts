@@ -8,12 +8,14 @@ import {FormsModule} from '@angular/forms';
 import {FilterTextComponent} from './filter-text/filter-text.component';
 import {FilterTextService} from './filter-text/filter-text.service';
 import {InitCapsPipe} from './init-caps.pipe';
+import { EmailComponent } from './email/email.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule],
   declarations: [
     FilterTextComponent,
-    InitCapsPipe
+    InitCapsPipe,
+    EmailComponent
   ],
   providers: [FilterTextService],
   exports: [
