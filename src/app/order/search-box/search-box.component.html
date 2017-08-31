@@ -6,7 +6,7 @@
   </md-input-container>
   <md-autocomplete #auto="mdAutocomplete">
     <md-option *ngFor="let user of filterList | async"
-    (click)="selectUser(user)">
+               (click)="selectUser(user)">
       {{ user.name || user.username}}
     </md-option>
   </md-autocomplete>

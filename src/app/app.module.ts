@@ -22,7 +22,7 @@ import {
   MdPaginatorModule
 } from '@angular/material';
 
-import {CdkTableModule} from '@angular/cdk';
+import {CdkTableModule} from '@angular/cdk/table';
 
 import {TableComponent} from './order/table/table.component';
 import {OrderCalendarComponent} from './order/order-calendar/order-calendar.component';

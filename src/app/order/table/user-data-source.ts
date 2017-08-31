@@ -1,4 +1,4 @@
-import {DataSource} from '@angular/cdk';
+import {DataSource} from '@angular/cdk/collections';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
 import {MdPaginator} from '@angular/material';
