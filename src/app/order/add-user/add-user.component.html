@@ -1,16 +1,25 @@
-<form class="example-form">
-  <md-form-field class="example-full-width">
-    <input mdInput #username placeholder="用户名" maxlength="10" [(ngModel)]="username" required>
-    <md-hint align="end">{{username.value.length}} / 10</md-hint>
-  </md-form-field>
+<div class="add-user">
+  <form class="example-form">
+    <md-form-field class="example-full-width">
+      <input mdInput [(ngModel)]="username" placeholder="用户名" [formControl]="usernameFormControl">
+      <md-hint align="end">{{username?.length}} / {{lengthLimit.USERNAME_MIN_LENGTH}}-{{lengthLimit.USERNAME_MAX_LENGTH}}</md-hint>
+    </md-form-field>
 
-  <app-email></app-email>
+    <app-email></app-email>
 
-  <md-form-field class="example-full-width">
-    <input mdInput type="password" placeholder="密码">
-  </md-form-field>
+    <md-form-field class="example-full-width">
+      <input mdInput type="password" [(ngModel)]="password" placeholder="密码" [formControl]="passwordFormControl">
+      <md-hint align="end">{{password?.length}} / {{lengthLimit.PASSWORD_MIN_LENGTH}}-{{lengthLimit.PASSWORD_MAX_LENGTH}}</md-hint>
+    </md-form-field>
 
-  <md-form-field class="example-full-width">
-    <input mdInput type="password" placeholder="确认密码">
-  </md-form-field>
-</form>
+    <md-form-field class="example-full-width">
+      <input mdInput type="password" [(ngModel)]="againPassword" placeholder="确认密码" [formControl]="againPasswordFormControl">
+    </md-form-field>
+  </form>
+  <div class="button-row">
+    <button md-raised-button color="accent" (cancel)="cancel()">取消</button>
+    <button md-raised-button color="primary" (click)="submit()">确定</button>
+  </div>
+</div>
+
+
